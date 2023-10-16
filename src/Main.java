@@ -1,18 +1,17 @@
 import java.io.*;
 import java.util.Arrays;
-import java.util.NavigableMap;
-import java.util.Random;
-import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
 
     private static boolean evenlyWeighted = true;
+    private static boolean runningWindows = false;
     private static String[] corners = new String[]{
             "",
             "U R2 L2 U R2 L2 U",
-            "U R2 F2 R2 F2 U"
+            "U R2 F2 R2 F2 U",
+            "U R2 L2 D L2 F2 U R2 U2 F2 U"
     };
     private static String[] edges = new String[]{
             "",
@@ -23,6 +22,7 @@ public class Main {
     };
 
     public static void main(String[] args) {
+        if(System.getProperty("os.name").startsWith("Windows")) runningWindows = true;
         WeightedDie die;
         if(evenlyWeighted) {die = new WeightedDie(new double[]{1, 1, 2, 1, 1}, new int[]{0,1,2,3,4});}
         else {die = new WeightedDie(new double[]{1, 16, 36, 16, 1}, new int[]{0,1,2,3,4});}
@@ -46,11 +46,19 @@ public class Main {
     }
 
     private static String nissy(String... input){
-        String[] commands = {"cmd","/c","start","/b","/wait","nissy-2.0.5.exe"};
+        String[] commands;
+        String directory;
+        if(runningWindows){
+            commands = new String[]{"cmd", "/c", "start", "/b", "/wait", "nissy-2.0.5.exe"};
+            directory = "C:\\Users\\lolra\\Downloads";
+        } else {
+            commands = new String[]{"nissy"};
+            directory = "/Users/michaelvogel/Documents/FMC/nissy-2.0.5";
+        }
         String[] inputs = Arrays.copyOf (commands,commands.length+input.length);
         System.arraycopy (input, 0, inputs, commands.length, input.length);
         ProcessBuilder pb = new ProcessBuilder(inputs);
-        pb.directory(new File("C:\\Users\\lolra\\Downloads"));
+        pb.directory(new File(directory));
         Process p;
         try {
             p = pb.start();
