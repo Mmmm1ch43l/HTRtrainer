@@ -18,7 +18,8 @@ public class Main {
             "U R2 F2 R2 U",
             "U R2 L2 D",
             "U R2 F2 L2 F2 B2 U",
-            "U R2 L2 F2 B2 U"
+            "U R2 L2 F2 B2 U",
+            "U R2 F2 R2 U F2 U R2 U' R2 U'"
     };
 
     public static void main(String[] args) {
