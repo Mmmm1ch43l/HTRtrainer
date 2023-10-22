@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) {
         if(System.getProperty("os.name").startsWith("Windows")) runningWindows = true;
         WeightedDie die;
-        if(evenlyWeighted) {die = new WeightedDie(new double[]{1, 1, 2, 1, 1}, new int[]{0,1,2,3,4});}
+        if(evenlyWeighted) {die = new WeightedDie(new double[]{1, 2, 4, 2, 1}, new int[]{0,1,2,3,4});}
         else {die = new WeightedDie(new double[]{1, 16, 36, 16, 1}, new int[]{0,1,2,3,4});}
         String scramble;
         while(true){
